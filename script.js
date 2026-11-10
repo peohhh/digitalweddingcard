@@ -1,220 +1,597 @@
-/* =========================================================
-   EDIT YOUR WEDDING DETAILS HERE
-   Date format: YYYY-MM-DDTHH:MM:SS+08:00 (Malaysia time)
-   ========================================================= */
+
+/* =====================================================
+   SYIKIN & HAFIDZ | WEDDING INVITATION
+   Edit wedding information in this configuration.
+   Malaysia timezone: UTC+8
+===================================================== */
+
 const WEDDING = {
-  bride: "Aisyah",
-  groom: "Adam",
-  date: "2026-12-20T11:00:00+08:00",
+  bride: "Syikin",
+  groom: "Hafidz",
+
+  date: "2026-12-20T10:00:00+08:00",
   dateLabel: "SUNDAY, 20 DECEMBER 2026",
   dateLong: "Sunday, 20 December 2026",
-  time: "11:00 AM – 2:00 PM",
+
+  time: "10:00 AM – 8:00 PM",
+
   venue: "Grand Ballroom",
-  address: "Kota Kinabalu, Sabah",
-  mapUrl: "https://maps.google.com/?q=Kota+Kinabalu+Sabah",
+  address: "Lahad Datu, Sabah",
+  mapUrl: "https://maps.google.com/?q=Lahad+Datu+Sabah",
+
   rsvpDeadline: "1 DECEMBER 2026",
-  // International format without + or spaces, e.g. 60123456789
-  whatsappNumber: "60123456789",
-  quote: "Two hearts, one promise, and a lifetime of beautiful tomorrows.",
-  // Paste your deployed Google Apps Script Web App URL here to enable shared RSVP + guest list.
-  // Leave as "" until the Google Sheet and Apps Script are configured.
-  rsvpEndpoint: ""
+
+  quote:
+    "Two hearts, one promise, and a lifetime of beautiful tomorrows.",
+
+  brideBio:
+    "A beautiful new chapter begins with love, hope and gratitude.",
+
+  groomBio:
+    "Ready to begin a lifetime journey with the one he loves.",
+
+  familyBride: {
+    name: "Bride's Family Representative",
+    phone: "60123456789"
+  },
+
+  familyGroom: {
+    name: "Groom's Family Representative",
+    phone: "60198765432"
+  }
 };
 
-// Add/replace image paths here. Put your own files in the images folder.
+
+/* =====================================================
+   PHOTO GALLERY
+===================================================== */
+
 const PHOTOS = [
-  { src: "images/photo-1.jpg", alt: "A favourite moment, photograph one" },
-  { src: "images/photo-2.jpg", alt: "A favourite moment, photograph two" },
-  { src: "images/photo-3.jpg", alt: "A favourite moment, photograph three" }
+  {
+    src: "images/photo-1.jpg",
+    alt: "Syikin and Hafidz - Photograph 1"
+  },
+  {
+    src: "images/photo-2.jpg",
+    alt: "Syikin and Hafidz - Photograph 2"
+  },
+  {
+    src: "images/photo-3.jpg",
+    alt: "Syikin and Hafidz - Photograph 3"
+  }
 ];
 
-const $ = (id) => document.getElementById(id);
+
+/* =====================================================
+   LOCAL STORAGE
+   RSVP stays on the visitor's current browser.
+===================================================== */
+
+const STORAGE_KEY = "syikin_hafidz_wedding_rsvp_v1";
+
+const $ = id => document.getElementById(id);
+
 let currentPhoto = 0;
 let slideshowTimer = null;
 let musicPlaying = false;
 
-function applyWeddingDetails() {
-  $("brideName").textContent = WEDDING.bride;
-  $("groomName").textContent = WEDDING.groom;
-  $("coverDate").textContent = WEDDING.dateLabel;
-  $("heroDate").textContent = WEDDING.dateLabel;
-  $("detailDate").textContent = WEDDING.dateLong;
-  $("detailTime").textContent = WEDDING.time;
-  $("venueName").textContent = WEDDING.venue;
-  $("venueAddress").textContent = WEDDING.address;
-  $("heroPlace").textContent = WEDDING.address.toUpperCase();
-  $("mapLink").href = WEDDING.mapUrl;
-  $("rsvpDeadline").textContent = WEDDING.rsvpDeadline;
-  $("loveQuote").textContent = WEDDING.quote;
-  $("footerNames").textContent = `${WEDDING.bride} & ${WEDDING.groom}`.toUpperCase();
-  document.title = `${WEDDING.bride} & ${WEDDING.groom} | Wedding Invitation`;
+
+/* =====================================================
+   HELPER FUNCTIONS
+===================================================== */
+
+function setText(id, value) {
+  const element = $(id);
+  if (element) element.textContent = value;
 }
+
+function getSavedGuests() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return Array.isArray(saved) ? saved : [];
+  } catch (error) {
+    console.error("Unable to read RSVP data:", error);
+    return [];
+  }
+}
+
+function saveGuests(guests) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
+    return true;
+  } catch (error) {
+    console.error("Unable to save RSVP:", error);
+    return false;
+  }
+}
+
+
+/* =====================================================
+   APPLY WEDDING INFORMATION
+===================================================== */
+
+function applyWeddingDetails() {
+
+  setText("brideName", WEDDING.bride);
+  setText("groomName", WEDDING.groom);
+
+  setText("coverDate", WEDDING.dateLabel);
+  setText("heroDate", WEDDING.dateLabel);
+  setText("detailDate", WEDDING.dateLong);
+
+  setText("detailTime", WEDDING.time);
+  setText("venueName", WEDDING.venue);
+  setText("venueAddress", WEDDING.address);
+  setText("heroPlace", WEDDING.address.toUpperCase());
+
+  setText("rsvpDeadline", WEDDING.rsvpDeadline);
+  setText("loveQuote", WEDDING.quote);
+
+  setText(
+    "footerNames",
+    `${WEDDING.bride} & ${WEDDING.groom}`.toUpperCase()
+  );
+
+  setText("brideDescription", WEDDING.brideBio);
+  setText("groomDescription", WEDDING.groomBio);
+
+  // Family contact information
+  setText("brideFamilyName", WEDDING.familyBride.name);
+  setText("groomFamilyName", WEDDING.familyGroom.name);
+
+  const bridePhone = $("brideFamilyPhone");
+  const groomPhone = $("groomFamilyPhone");
+
+  if (bridePhone) {
+    bridePhone.textContent = WEDDING.familyBride.phone;
+    bridePhone.href = `tel:+${WEDDING.familyBride.phone}`;
+  }
+
+  if (groomPhone) {
+    groomPhone.textContent = WEDDING.familyGroom.phone;
+    groomPhone.href = `tel:+${WEDDING.familyGroom.phone}`;
+  }
+
+  const map = $("mapLink");
+  if (map) map.href = WEDDING.mapUrl;
+
+  document.title =
+    `${WEDDING.bride} & ${WEDDING.groom} | Wedding Invitation`;
+}
+
+
+/* =====================================================
+   OPEN INVITATION
+===================================================== */
 
 function openInvitation() {
-  $("cover").classList.add("cover-closed");
-  $("cover").style.display = "none";
-  $("invitation").classList.remove("is-hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  // Browsers require music to start after a visitor's click/tap.
-  playMusic();
-  loadGuestList();
-}
-$("openInvitation").addEventListener("click", openInvitation);
 
-function playMusic() {
+  $("cover")?.classList.add("cover-closed");
+
+  if ($("cover")) {
+    $("cover").style.display = "none";
+  }
+
+  $("invitation")?.classList.remove("is-hidden");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  playMusic();
+  renderGuestList();
+}
+
+$("openInvitation")?.addEventListener("click", openInvitation);
+
+
+/* =====================================================
+   BACKGROUND MUSIC
+===================================================== */
+
+function updateMusicButton() {
+
+  const button = $("musicToggle");
+
+  if (!button) return;
+
+  button.classList.toggle("is-playing", musicPlaying);
+
+  button.setAttribute(
+    "aria-label",
+    musicPlaying ? "Pause music" : "Play music"
+  );
+
+  setText(
+    "musicLabel",
+    musicPlaying ? "Now playing" : "Play music"
+  );
+}
+
+async function playMusic() {
+
   const audio = $("weddingMusic");
-  if (!audio.querySelector("source").getAttribute("src")) return;
-  audio.play().then(() => {
+
+  if (!audio) return;
+
+  try {
+    await audio.play();
     musicPlaying = true;
     updateMusicButton();
-  }).catch(() => {
-    $("musicLabel").textContent = "Tap ♫ to play";
-  });
+  } catch (error) {
+    setText("musicLabel", "Tap ♫ to play");
+  }
 }
-function updateMusicButton() {
-  $("musicToggle").classList.toggle("is-playing", musicPlaying);
-  $("musicToggle").setAttribute("aria-label", musicPlaying ? "Pause music" : "Play music");
-  $("musicLabel").textContent = musicPlaying ? "Now playing" : "Play music";
-}
-$("musicToggle").addEventListener("click", async () => {
+
+$("musicToggle")?.addEventListener("click", async () => {
+
   const audio = $("weddingMusic");
-  if (musicPlaying) { audio.pause(); musicPlaying = false; updateMusicButton(); }
-  else {
-    try { await audio.play(); musicPlaying = true; updateMusicButton(); }
-    catch { $("musicLabel").textContent = "Add music/wedding-song.mp3"; }
+
+  if (!audio) return;
+
+  if (musicPlaying) {
+
+    audio.pause();
+    musicPlaying = false;
+    updateMusicButton();
+
+  } else {
+
+    await playMusic();
+
   }
 });
+
+$("weddingMusic")?.addEventListener("ended", () => {
+  musicPlaying = false;
+  updateMusicButton();
+});
+
+
+/* =====================================================
+   WEDDING COUNTDOWN
+===================================================== */
 
 function updateCountdown() {
-  const distance = new Date(WEDDING.date).getTime() - Date.now();
+
+  const distance =
+    new Date(WEDDING.date).getTime() - Date.now();
+
   if (distance <= 0) {
-    ["days", "hours", "minutes", "seconds"].forEach(id => $(id).textContent = "00");
-    return;
-  }
-  $("days").textContent = String(Math.floor(distance / 86400000)).padStart(2, "0");
-  $("hours").textContent = String(Math.floor(distance / 3600000) % 24).padStart(2, "0");
-  $("minutes").textContent = String(Math.floor(distance / 60000) % 60).padStart(2, "0");
-  $("seconds").textContent = String(Math.floor(distance / 1000) % 60).padStart(2, "0");
-}
 
-function showPhoto(index) {
-  currentPhoto = (index + PHOTOS.length) % PHOTOS.length;
-  $("lightboxImage").src = PHOTOS[currentPhoto].src;
-  $("lightboxImage").alt = PHOTOS[currentPhoto].alt;
-  $("lightboxCaption").textContent = `${String(currentPhoto + 1).padStart(2,"0")} / ${String(PHOTOS.length).padStart(2,"0")}`;
-  $("galleryCounter").textContent = $("lightboxCaption").textContent;
-}
-function openLightbox(index) {
-  showPhoto(index);
-  $("lightbox").classList.add("open");
-  $("lightbox").setAttribute("aria-hidden", "false");
-}
-function closeLightbox() {
-  $("lightbox").classList.remove("open");
-  $("lightbox").setAttribute("aria-hidden", "true");
-}
-document.querySelectorAll(".gallery-item").forEach(button => {
-  button.addEventListener("click", () => openLightbox(Number(button.dataset.index)));
-});
-$("galleryPrev").addEventListener("click", () => showPhoto(currentPhoto - 1));
-$("galleryNext").addEventListener("click", () => showPhoto(currentPhoto + 1));
-$("lightboxPrev").addEventListener("click", () => showPhoto(currentPhoto - 1));
-$("lightboxNext").addEventListener("click", () => showPhoto(currentPhoto + 1));
-$("lightboxClose").addEventListener("click", closeLightbox);
-$("lightbox").addEventListener("click", event => { if (event.target === $("lightbox")) closeLightbox(); });
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeLightbox();
-  if (event.key === "ArrowRight" && $("lightbox").classList.contains("open")) showPhoto(currentPhoto + 1);
-  if (event.key === "ArrowLeft" && $("lightbox").classList.contains("open")) showPhoto(currentPhoto - 1);
-});
-$("slideshowToggle").addEventListener("click", () => {
-  if (slideshowTimer) {
-    clearInterval(slideshowTimer); slideshowTimer = null;
-    $("slideshowToggle").textContent = "START SLIDESHOW";
-  } else {
-    showPhoto(currentPhoto + 1);
-    slideshowTimer = setInterval(() => showPhoto(currentPhoto + 1), 3000);
-    $("slideshowToggle").textContent = "STOP SLIDESHOW";
-  }
-});
+    ["days", "hours", "minutes", "seconds"].forEach(id => {
+      setText(id, "00");
+    });
 
-function setFormStatus(message, isError = false) {
-  $("formStatus").textContent = message;
-  $("formStatus").style.color = isError ? "#ffb4a8" : "var(--gold)";
-}
-$("rsvpForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const form = new FormData(event.currentTarget);
-  const name = String(form.get("name") || "").trim();
-  const attendance = String(form.get("attendance") || "");
-  const guests = String(form.get("guests") || "1");
-  const message = String(form.get("message") || "").trim();
-  const showName = $("showName").checked ? "Yes, you may display my name" : "No, please keep my name private";
-
-  if (!name) {
-    setFormStatus("Please enter your name before sending your RSVP.", true);
-    return;
-  }
-  if (!/^\d{10,15}$/.test(WEDDING.whatsappNumber)) {
-    setFormStatus("The organiser's WhatsApp number has not been set correctly. Please contact the couple.", true);
     return;
   }
 
-  const text = [
-    `Assalamualaikum / Hello ${WEDDING.bride} & ${WEDDING.groom},`,
-    "",
-    "I would like to RSVP for your wedding celebration.",
-    `Name: ${name}`,
-    `Attendance: ${attendance}`,
-    `Number of guests: ${attendance === "Attending" ? guests : "0"}`,
-    `Guest-list preference: ${showName}`,
-    message ? `Message: ${message}` : "",
-    "",
-    "Thank you for the invitation!"
-  ].filter(Boolean).join("\n");
+  const days = Math.floor(distance / 86400000);
+  const hours = Math.floor(distance / 3600000) % 24;
+  const minutes = Math.floor(distance / 60000) % 60;
+  const seconds = Math.floor(distance / 1000) % 60;
 
-  const whatsappUrl = `https://wa.me/${WEDDING.whatsappNumber}?text=${encodeURIComponent(text)}`;
-  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  setFormStatus("WhatsApp is opening with your RSVP message. Please press Send in WhatsApp to complete your reply.");
-});
-
-function renderGuestList(guests) {
-  const attending = guests.filter(g => g.attendance === "Attending");
-  $("attendingCount").textContent = attending.reduce((sum, g) => sum + Number(g.guests || 1), 0);
-  const list = $("guestList");
-  list.innerHTML = "";
-  if (!attending.length) {
-    const li = document.createElement("li");
-    li.className = "guest-empty";
-    li.textContent = "No confirmed guest names to display yet.";
-    list.appendChild(li);
-    return;
-  }
-  attending.forEach(guest => {
-    const li = document.createElement("li");
-    li.textContent = guest.name;
-    list.appendChild(li);
-  });
-}
-function loadGuestList() {
-  if (!WEDDING.rsvpEndpoint) return;
-  // Apps Script JSONP endpoint allows the public guest list to be read from GitHub Pages.
-  const callbackName = "weddingGuestCallback";
-  window[callbackName] = data => {
-    if (data && Array.isArray(data.guests)) renderGuestList(data.guests);
-    delete window[callbackName];
-  };
-  const script = document.createElement("script");
-  script.src = `${WEDDING.rsvpEndpoint}?action=list&callback=${callbackName}&_=${Date.now()}`;
-  script.onerror = () => {
-    $("guestList").innerHTML = '<li class="guest-empty">Guest list is temporarily unavailable.</li>';
-    delete window[callbackName];
-  };
-  document.body.appendChild(script);
-  script.onload = () => script.remove();
+  setText("days", String(days).padStart(2, "0"));
+  setText("hours", String(hours).padStart(2, "0"));
+  setText("minutes", String(minutes).padStart(2, "0"));
+  setText("seconds", String(seconds).padStart(2, "0"));
 }
 
-applyWeddingDetails();
 updateCountdown();
 setInterval(updateCountdown, 1000);
-showPhoto(0);
+
+
+/* =====================================================
+   PHOTO GALLERY
+===================================================== */
+
+function showPhoto(index) {
+
+  if (!PHOTOS.length) return;
+
+  currentPhoto =
+    (index + PHOTOS.length) % PHOTOS.length;
+
+  const photo = PHOTOS[currentPhoto];
+
+  const image = $("lightboxImage");
+
+  if (image) {
+    image.src = photo.src;
+    image.alt = photo.alt;
+  }
+
+  const counter =
+    `${String(currentPhoto + 1).padStart(2, "0")} / ` +
+    `${String(PHOTOS.length).padStart(2, "0")}`;
+
+  setText("lightboxCaption", counter);
+  setText("galleryCounter", counter);
+}
+
+function openLightbox(index) {
+
+  showPhoto(index);
+
+  $("lightbox")?.classList.add("open");
+
+  $("lightbox")?.setAttribute("aria-hidden", "false");
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+
+  $("lightbox")?.classList.remove("open");
+
+  $("lightbox")?.setAttribute("aria-hidden", "true");
+
+  document.body.style.overflow = "";
+}
+
+document.querySelectorAll(".gallery-item").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    openLightbox(Number(button.dataset.index));
+
+  });
+
+});
+
+$("galleryPrev")?.addEventListener("click", () => {
+  showPhoto(currentPhoto - 1);
+});
+
+$("galleryNext")?.addEventListener("click", () => {
+  showPhoto(currentPhoto + 1);
+});
+
+$("lightboxPrev")?.addEventListener("click", () => {
+  showPhoto(currentPhoto - 1);
+});
+
+$("lightboxNext")?.addEventListener("click", () => {
+  showPhoto(currentPhoto + 1);
+});
+
+$("lightboxClose")?.addEventListener("click", closeLightbox);
+
+$("lightbox")?.addEventListener("click", event => {
+
+  if (event.target === $("lightbox")) {
+    closeLightbox();
+  }
+
+});
+
+document.addEventListener("keydown", event => {
+
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+
+  if (
+    event.key === "ArrowRight" &&
+    $("lightbox")?.classList.contains("open")
+  ) {
+    showPhoto(currentPhoto + 1);
+  }
+
+  if (
+    event.key === "ArrowLeft" &&
+    $("lightbox")?.classList.contains("open")
+  ) {
+    showPhoto(currentPhoto - 1);
+  }
+
+});
+
+
+/* =====================================================
+   SLIDESHOW
+===================================================== */
+
+function stopSlideshow() {
+
+  if (slideshowTimer) {
+    clearInterval(slideshowTimer);
+    slideshowTimer = null;
+  }
+
+  setText("slideshowToggle", "START SLIDESHOW");
+}
+
+$("slideshowToggle")?.addEventListener("click", () => {
+
+  if (slideshowTimer) {
+
+    stopSlideshow();
+
+  } else {
+
+    showPhoto(currentPhoto + 1);
+
+    slideshowTimer = setInterval(() => {
+      showPhoto(currentPhoto + 1);
+    }, 3000);
+
+    setText("slideshowToggle", "STOP SLIDESHOW");
+
+  }
+
+});
+
+
+/* =====================================================
+   RSVP FORM
+   No WhatsApp. No external API.
+===================================================== */
+
+function setFormStatus(message, isError = false) {
+
+  const status = $("formStatus");
+
+  if (!status) return;
+
+  status.textContent = message;
+
+  status.style.color = isError
+    ? "#ffb4a8"
+    : "var(--gold)";
+}
+
+$("rsvpForm")?.addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  const form = new FormData(event.currentTarget);
+
+  const name = String(form.get("name") || "").trim();
+
+  const attendance =
+    String(form.get("attendance") || "");
+
+  const message =
+    String(form.get("message") || "").trim();
+
+  if (!name) {
+    setFormStatus("Please enter your name.", true);
+    return;
+  }
+
+  if (!attendance) {
+    setFormStatus("Please select your attendance.", true);
+    return;
+  }
+
+  if (name.length > 80 || message.length > 300) {
+    setFormStatus("Please check your information.", true);
+    return;
+  }
+
+  const guests = getSavedGuests();
+
+  // Prevent accidental duplicate RSVP from the same browser.
+  const duplicate = guests.some(guest =>
+    guest.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (duplicate) {
+    setFormStatus(
+      "This name has already submitted an RSVP on this browser.",
+      true
+    );
+    return;
+  }
+
+  const newGuest = {
+    id: Date.now(),
+    name: name,
+    attendance: attendance,
+    message: message,
+    submittedAt: new Date().toISOString()
+  };
+
+  guests.push(newGuest);
+
+  if (!saveGuests(guests)) {
+
+    setFormStatus(
+      "Unable to save RSVP on this browser. Please try again.",
+      true
+    );
+
+    return;
+  }
+
+  event.currentTarget.reset();
+
+  setFormStatus(
+    "Thank you! Your RSVP has been recorded. We appreciate your wishes."
+  );
+
+  renderGuestList();
+
+});
+
+
+/* =====================================================
+   GUESTBOOK
+===================================================== */
+
+function renderGuestList() {
+
+  const guests = getSavedGuests();
+
+  const attending = guests.filter(guest =>
+    guest.attendance === "Attending"
+  );
+
+  setText("attendingCount", attending.length);
+
+  const list = $("guestList");
+
+  if (!list) return;
+
+  list.replaceChildren();
+
+  if (!attending.length) {
+
+    const empty = document.createElement("li");
+
+    empty.className = "guest-empty";
+
+    empty.textContent =
+      "Be the first to confirm your attendance.";
+
+    list.appendChild(empty);
+
+    return;
+  }
+
+  attending.forEach(guest => {
+
+    const item = document.createElement("li");
+
+    item.className = "guest-message";
+
+    const guestName = document.createElement("strong");
+
+    guestName.textContent = guest.name;
+
+    item.appendChild(guestName);
+
+    if (guest.message) {
+
+      const wish = document.createElement("p");
+
+      wish.textContent = guest.message;
+
+      item.appendChild(wish);
+
+    }
+
+    list.appendChild(item);
+
+  });
+
+}
+
+
+/* =====================================================
+   INITIALISE WEBSITE
+===================================================== */
+
+function initialiseWedding() {
+
+  applyWeddingDetails();
+
+  showPhoto(0);
+
+  renderGuestList();
+
+}
+
+initialiseWedding();
