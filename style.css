@@ -138,4 +138,196 @@ blockquote { max-width: 650px; margin: 15px auto 25px; color: var(--champagne); 
   .schedule-row { gap: 12px; font-size: 10px; }
   .schedule-row time { min-width: 78px; }.schedule-row span { min-width: 145px; }
   .music-control { top: 10px; right: 10px; }
+
+  /* =========================================
+   RSVP POPUP — NAVY & CHAMPAGNE
+========================================= */
+
+.rsvp-open-button {
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+.rsvp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5, 12, 27, 0.82);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+
+.rsvp-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rsvp-modal-card {
+  position: relative;
+  width: min(100%, 510px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 42px 38px;
+  text-align: center;
+  color: var(--champagne);
+  background: linear-gradient(145deg, #172747, #101b35);
+  border: 1px solid var(--gold);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, .4);
+  transform: translateY(25px) scale(.97);
+  transition: transform .4s ease;
+}
+
+.rsvp-modal.open .rsvp-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.rsvp-modal-card::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(214, 184, 135, .3);
+  pointer-events: none;
+}
+
+.rsvp-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  color: var(--champagne);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.rsvp-modal-decoration {
+  color: var(--gold);
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.rsvp-modal-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 12px auto 25px;
+  max-width: 340px;
+}
+
+.rsvp-modal .rsvp-form {
+  text-align: left;
+}
+
+.rsvp-modal .rsvp-form label {
+  display: block;
+  margin: 15px 0 7px;
+  color: var(--champagne);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.rsvp-modal .rsvp-form input:not([type="checkbox"]),
+.rsvp-modal .rsvp-form select,
+.rsvp-modal .rsvp-form textarea {
+  width: 100%;
+  padding: 13px 14px;
+  color: var(--champagne);
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(214, 184, 135, .45);
+  border-radius: 2px;
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.rsvp-modal .rsvp-form select option {
+  color: #101b35;
+  background: #fff;
+}
+
+.rsvp-modal .rsvp-form input:focus,
+.rsvp-modal .rsvp-form select:focus,
+.rsvp-modal .rsvp-form textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(214, 184, 135, .12);
+}
+
+.rsvp-modal .rsvp-form textarea {
+  resize: vertical;
+}
+
+.rsvp-modal .consent-line {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 10px !important;
+  line-height: 1.6;
+  letter-spacing: 0 !important;
+}
+
+.rsvp-modal .consent-line input {
+  accent-color: var(--gold);
+  margin-top: 2px;
+}
+
+.rsvp-modal .submit-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.rsvp-modal .form-status {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.rsvp-success {
+  padding: 20px 5px 5px;
+  animation: rsvpFadeIn .5s ease both;
+}
+
+.rsvp-success[hidden] {
+  display: none;
+}
+
+.success-icon {
+  color: var(--gold);
+  font-size: 45px;
+  margin-bottom: 12px;
+}
+
+.rsvp-success p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 15px 0 25px;
+}
+
+@keyframes rsvpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .rsvp-modal {
+    padding: 12px;
+  }
+
+  .rsvp-modal-card {
+    padding: 38px 22px 28px;
+  }
+}
 }
