@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Wedding Invitation</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Opening Screen -->
+    <section class="opening" id="opening">
+        <div class="envelope">
+            <div class="seal">♥</div>
+        </div>
+
+        <p class="small-text">YOU ARE CORDIALLY INVITED TO</p>
+        <h1>Our Wedding</h1>
+        <p class="date">20 . 12 . 2026</p>
+
+        <button onclick="openInvitation()">
+            OPEN INVITATION
+        </button>
+    </section>
+
+    <!-- Main Invitation -->
+    <main id="invitation">
+
+        <section class="hero">
+            <p class="subtitle">THE WEDDING OF</p>
+
+            <h1 class="names">
+                Aisyah <span>&</span> Adam
+            </h1>
+
+            <div class="gold-line"></div>
+
+            <p class="subtitle">REQUEST THE PLEASURE OF YOUR COMPANY</p>
+
+            <p class="wedding-date">
+                SUNDAY, 20 DECEMBER 2026
+            </p>
+
+            <p class="location">
+                KOTA KINABALU, SABAH
+            </p>
+        </section>
+
+        <section class="countdown-section">
+            <h2>Counting Our Moments</h2>
+
+            <div class="countdown">
+                <div><span id="days">00</span><small>Days</small></div>
+                <div><span id="hours">00</span><small>Hours</small></div>
+                <div><span id="minutes">00</span><small>Minutes</small></div>
+                <div><span id="seconds">00</span><small>Seconds</small></div>
+            </div>
+        </section>
+
+        <section class="details">
+            <p class="subtitle">SAVE THE DATE</p>
+            <h2>Wedding Details</h2>
+
+            <div class="detail-card">
+                <h3>THE CEREMONY</h3>
+                <p>Sunday, 20 December 2026</p>
+                <p>11:00 AM – 2:00 PM</p>
+
+                <div class="gold-line"></div>
+
+                <h3>THE VENUE</h3>
+                <p>Grand Ballroom</p>
+                <p>Kota Kinabalu, Sabah</p>
+
+                <a href="https://maps.google.com" target="_blank">
+                    VIEW LOCATION
+                </a>
+            </div>
+        </section>
+
+        <section class="rsvp">
+            <h2>We Hope To See You</h2>
+            <p>Your presence would mean the world to us.</p>
+
+            <a class="rsvp-button"
+               href="https://wa.me/60123456789"
+               target="_blank">
+               RSVP NOW
+            </a>
+        </section>
+
+        <footer>
+            <h2>Aisyah & Adam</h2>
+            <p>WITH LOVE AND GRATITUDE</p>
+            <p>© 2026 OUR WEDDING</p>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
