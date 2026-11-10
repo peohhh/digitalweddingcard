@@ -111,31 +111,83 @@
       </div>
     </section>
 
-    <section class="rsvp-section section-shell" id="rsvp">
-      <p class="eyebrow">KINDLY REPLY BY <span id="rsvpDeadline">1 DECEMBER 2026</span></p>
-      <h2 class="script-heading">Will you be joining us?</h2>
-      <p class="section-note">Your presence will make our day even more meaningful.</p>
+   <section class="rsvp-section section-shell" id="rsvp">
+  <p class="eyebrow">KINDLY REPLY BY <span id="rsvpDeadline">1 DECEMBER 2026</span></p>
+  <h2 class="script-heading">Will you be joining us?</h2>
+  <p class="section-note">Your presence will make our day even more meaningful.</p>
+
+  <button class="primary-button rsvp-open-button" id="openRsvp" type="button">
+    RESPOND TO INVITATION ✧
+  </button>
+
+  <div class="rsvp-modal" id="rsvpModal" aria-hidden="true">
+    <div class="rsvp-modal-card" role="dialog" aria-modal="true"
+         aria-labelledby="rsvpModalTitle">
+
+      <button class="rsvp-modal-close" id="closeRsvp"
+              type="button" aria-label="Close RSVP">&times;</button>
+
+      <div class="rsvp-modal-decoration">✧</div>
+      <p class="eyebrow">SYIKIN &amp; HAFIDZ</p>
+      <h2 class="script-heading" id="rsvpModalTitle">Kindly Respond</h2>
+      <p class="rsvp-modal-note">
+        We would be delighted to celebrate this special day with you.
+      </p>
+
       <form id="rsvpForm" class="rsvp-form">
         <label for="guestName">Your name</label>
-        <input id="guestName" name="name" type="text" placeholder="Enter your full name" maxlength="80" required>
+        <input id="guestName" name="name" type="text"
+               placeholder="Enter your full name" maxlength="80" required>
+
         <label for="attendance">Will you attend?</label>
         <select id="attendance" name="attendance" required>
           <option value="Attending">Joyfully accepts</option>
           <option value="Not attending">Regretfully declines</option>
         </select>
-        <label for="guestCount">Number of guests (including you)</label>
-        <select id="guestCount" name="guests">
-          <option value="1">1 guest</option><option value="2">2 guests</option>
-          <option value="3">3 guests</option><option value="4">4 guests</option>
-          <option value="5">5 guests</option>
-        </select>
+
+        <div id="guestCountField">
+          <label for="guestCount">Number of guests (including you)</label>
+          <select id="guestCount" name="guests">
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+          </select>
+        </div>
+
         <label for="guestMessage">A little message (optional)</label>
-        <textarea id="guestMessage" name="message" rows="3" maxlength="300" placeholder="Leave your wishes for the couple..."></textarea>
-        <label class="consent-line"><input id="showName" type="checkbox" checked> I agree that my name may appear in the guest attendance list.</label>
-        <button class="primary-button submit-button" type="submit">SEND RSVP ✧</button>
-        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <textarea id="guestMessage" name="message" rows="3"
+                  maxlength="300"
+                  placeholder="Leave your wishes for the couple..."></textarea>
+
+        <label class="consent-line">
+          <input id="showName" type="checkbox" checked>
+          I agree that my name may appear in the guest attendance list.
+        </label>
+
+        <button class="primary-button submit-button" type="submit">
+          SEND RSVP ✧
+        </button>
+
+        <p class="form-status" id="formStatus"
+           role="status" aria-live="polite"></p>
       </form>
-    </section>
+
+      <div class="rsvp-success" id="rsvpSuccess" hidden>
+        <div class="success-icon">✧</div>
+        <h3 class="script-heading">Thank You!</h3>
+        <p id="rsvpSuccessMessage">
+          Your response has been received. Thank you for being part of our celebration.
+        </p>
+        <button class="primary-button" id="finishRsvp" type="button">
+          CLOSE ✧
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <section class="guestbook-section section-shell" id="guestbook">
       <p class="eyebrow">CELEBRATING WITH US</p>
