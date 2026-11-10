@@ -486,13 +486,20 @@ $("rsvpForm")?.addEventListener("submit", event => {
     return;
   }
 
-  const newGuest = {
-    id: Date.now(),
-    name: name,
-    attendance: attendance,
-    message: message,
-    submittedAt: new Date().toISOString()
-  };
+const attending = guests.filter(guest =>
+  guest.attendance === "Attending"
+);
+
+const totalAttending = attending.reduce(
+  (total, guest) => total + Number(guest.guests || 1),
+  0
+);
+
+setText("attendingCount", totalAttending);
+
+const visibleGuests = attending.filter(guest =>
+  guest.showName === true
+);
 
   guests.push(newGuest);
 
@@ -595,3 +602,77 @@ function initialiseWedding() {
 }
 
 initialiseWedding();
+
+/* =========================================
+   RSVP POPUP CONTROLS
+========================================= */
+
+const rsvpModal = $("rsvpModal");
+const rsvpForm = $("rsvpForm");
+const rsvpSuccess = $("rsvpSuccess");
+
+function openRsvpModal() {
+  if (!rsvpModal) return;
+
+  rsvpModal.classList.add("open");
+  rsvpModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  setTimeout(() => $("guestName")?.focus(), 250);
+}
+
+function closeRsvpModal() {
+  if (!rsvpModal) return;
+
+  rsvpModal.classList.remove("open");
+  rsvpModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+$("openRsvp")?.addEventListener("click", openRsvpModal);
+$("closeRsvp")?.addEventListener("click", closeRsvpModal);
+$("finishRsvp")?.addEventListener("click", closeRsvpModal);
+
+rsvpModal?.addEventListener("click", event => {
+  if (event.target === rsvpModal) {
+    closeRsvpModal();
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (
+    event.key === "Escape" &&
+    rsvpModal?.classList.contains("open")
+  ) {
+    closeRsvpModal();
+  }
+});
+
+// Show or hide guest count depending on attendance choice.
+$("attendance")?.addEventListener("change", event => {
+  const field = $("guestCountField");
+
+  if (field) {
+    field.style.display =
+      event.target.value === "Attending" ? "block" : "none";
+  }
+});
+
+// Show the thank-you screen after a successful RSVP.
+rsvpForm?.addEventListener("submit", () => {
+  setTimeout(() => {
+    const status = $("formStatus")?.textContent || "";
+
+    if (status.startsWith("Thank you!")) {
+      rsvpForm.hidden = true;
+      rsvpSuccess.hidden = false;
+    }
+  }, 50);
+});
+
+// Reset the popup for the next visitor using this browser.
+$("openRsvp")?.addEventListener("click", () => {
+  if (rsvpForm) rsvpForm.hidden = false;
+  if (rsvpSuccess) rsvpSuccess.hidden = true;
+  setFormStatus("");
+});
