@@ -329,5 +329,27 @@ blockquote { max-width: 650px; margin: 15px auto 25px; color: var(--champagne); 
   .rsvp-modal-card {
     padding: 38px 22px 28px;
   }
+
+  html {
+    overflow-y: auto;
+    height: auto;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
+    height: auto;
+}
+
+.invitation {
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
+}
+
+.is-hidden {
+    display: none !important;
+}
 }
 }
