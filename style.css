@@ -128,20 +128,59 @@ blockquote { max-width: 650px; margin: 15px auto 25px; color: var(--champagne); 
 @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pulse { 50% { box-shadow: 0 0 0 5px #d6b88722; } }
-@media (max-width: 620px) {
-  .section-shell { padding: 72px 18px; }
-  .hero { min-height: 570px; }
-  .details-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-rows: 145px 145px; gap: 8px; }
-  .countdown { gap: 8px; }.countdown div { min-width: 70px; padding: 13px 8px; }
-  .countdown strong { font-size: 29px; }
-  .schedule-row { gap: 12px; font-size: 10px; }
-  .schedule-row time { min-width: 78px; }.schedule-row span { min-width: 145px; }
-  .music-control { top: 10px; right: 10px; }
 
-  /* =========================================
-   RSVP POPUP — NAVY & CHAMPAGNE
-========================================= */
+/* MOBILE RESPONSIVE */
+@media (max-width: 620px) {
+  .section-shell {
+    padding: 72px 18px;
+  }
+
+  .hero {
+    min-height: 570px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-rows: 145px 145px;
+    gap: 8px;
+  }
+
+  .countdown {
+    gap: 8px;
+  }
+
+  .countdown div {
+    min-width: 70px;
+    padding: 13px 8px;
+  }
+
+  .countdown strong {
+    font-size: 29px;
+  }
+
+  .schedule-row {
+    gap: 12px;
+    font-size: 10px;
+  }
+
+  .schedule-row time {
+    min-width: 78px;
+  }
+
+  .schedule-row span {
+    min-width: 145px;
+  }
+
+  .music-control {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* RSVP POPUP — NAVY & CHAMPAGNE */
 
 .rsvp-open-button {
   margin-top: 24px;
@@ -329,36 +368,30 @@ blockquote { max-width: 650px; margin: 15px auto 25px; color: var(--champagne); 
   .rsvp-modal-card {
     padding: 38px 22px 28px;
   }
+}
 
- /* FIX WEDDING INVITATION SCROLL */
+/* FIX WEDDING INVITATION SCROLL */
 
 html {
-    height: auto !important;
-    min-height: 100%;
-    overflow-y: auto !important;
-    overflow-x: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
-    height: auto !important;
-    min-height: 100vh;
-    overflow-y: auto !important;
-    overflow-x: hidden;
+  min-height: 100vh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-#invitation {
-    height: auto !important;
-    min-height: 100vh;
-    overflow: visible !important;
-}
-
+#invitation,
 .invitation {
-    height: auto !important;
-    min-height: 100vh;
-    overflow: visible !important;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
 }
 
 .is-hidden {
-    display: none !important;
-}
+  display: none !important;
 }
