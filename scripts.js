@@ -7,46 +7,82 @@ const weddingMusic = document.getElementById("weddingMusic");
 const musicToggle = document.getElementById("musicToggle");
 const musicLabel = document.getElementById("musicLabel");
 
-openInvitation.addEventListener("click", async () => {
-  cover.classList.add("is-hidden");
-  invitation.classList.remove("is-hidden");
+// OPEN WEDDING INVITATION
+const openButton = document.getElementById("openInvitation");
+const invitation = document.getElementById("invitation");
+const cover = document.getElementById("cover");
 
-  try {
-    await weddingMusic.play();
-    musicToggle.textContent = "♫";
-    musicLabel.textContent = "Pause music";
-  } catch (error) {
-    musicLabel.textContent = "Play music";
-  }
+// BACKGROUND MUSIC
+const weddingMusic = document.getElementById("weddingMusic");
+const musicToggle = document.getElementById("musicToggle");
+const musicLabel = document.getElementById("musicLabel");
+
+// Open invitation and play music
+openButton.addEventListener("click", async () => {
+    cover.classList.add("is-hidden");
+    invitation.classList.remove("is-hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    try {
+        await weddingMusic.play();
+        musicToggle.textContent = "♫";
+        musicLabel.textContent = "Pause music";
+        musicToggle.setAttribute("aria-label", "Pause music");
+    } catch (error) {
+        musicLabel.textContent = "Play music";
+    }
 });
 
+// PLAY / PAUSE MUSIC
 musicToggle.addEventListener("click", async () => {
-  if (weddingMusic.paused) {
-    try {
-      await weddingMusic.play();
-      musicToggle.textContent = "♫";
-      musicLabel.textContent = "Pause music";
-    } catch (error) {
-      musicLabel.textContent = "Play music";
+    if (weddingMusic.paused) {
+        try {
+            await weddingMusic.play();
+            musicToggle.textContent = "♫";
+            musicLabel.textContent = "Pause music";
+            musicToggle.setAttribute("aria-label", "Pause music");
+        } catch (error) {
+            musicLabel.textContent = "Play music";
+        }
+    } else {
+        weddingMusic.pause();
+        musicToggle.textContent = "♪";
+        musicLabel.textContent = "Play music";
+        musicToggle.setAttribute("aria-label", "Play music");
     }
-  } else {
-    weddingMusic.pause();
-    musicToggle.textContent = "♪";
-    musicLabel.textContent = "Play music";
-  }
 });
         return;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-    const seconds = Math.floor((distance / 1000) % 60);
+   // WEDDING COUNTDOWN
+const weddingDate = new Date("December 20, 2026 11:00:00").getTime();
 
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = hours;
-    document.getElementById("minutes").innerText = minutes;
-    document.getElementById("seconds").innerText = seconds;
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance <= 0) {
+        ["days", "hours", "minutes", "seconds"].forEach(id => {
+            document.getElementById(id).innerText = "00";
+        });
+        return;
+    }
+
+    document.getElementById("days").innerText =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    document.getElementById("hours").innerText =
+        Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+    document.getElementById("minutes").innerText =
+        Math.floor((distance / (1000 * 60)) % 60);
+
+    document.getElementById("seconds").innerText =
+        Math.floor((distance / 1000) % 60);
 }
 
 updateCountdown();
