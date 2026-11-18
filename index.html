@@ -13,10 +13,9 @@
 </head>
 <body>
   <!-- EDIT YOUR WEDDING DETAILS IN js/script.js, IN THE CONFIG SECTION -->
-  <div class="music-control" id="musicControl" aria-label="Music controls">
-    <button id="musicToggle" class="music-button" type="button" aria-label="Play music">♫</button>
-    <span id="musicLabel">Play music</span>
-  </div>
+ <audio id="weddingMusic" loop preload="auto">
+  <source src="music/wedding-song.mp3" type="audio/mpeg">
+</audio>
   <audio id="weddingMusic" loop preload="none">
     <source src="music/wedding-song.mp3" type="audio/mpeg">
   </audio>
