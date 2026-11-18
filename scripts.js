@@ -1,27 +1,40 @@
-
 function openInvitation() {
-    document.getElementById("opening").style.display = "none";
+const openInvitation = document.getElementById("openInvitation");
+const invitation = document.getElementById("invitation");
+const cover = document.getElementById("cover");
 
-    const invitation = document.getElementById("invitation");
-    invitation.style.display = "block";
+const weddingMusic = document.getElementById("weddingMusic");
+const musicToggle = document.getElementById("musicToggle");
+const musicLabel = document.getElementById("musicLabel");
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
+openInvitation.addEventListener("click", async () => {
+  cover.classList.add("is-hidden");
+  invitation.classList.remove("is-hidden");
 
-// Wedding countdown
-const weddingDate = new Date("December 20, 2026 11:00:00").getTime();
+  try {
+    await weddingMusic.play();
+    musicToggle.textContent = "♫";
+    musicLabel.textContent = "Pause music";
+  } catch (error) {
+    musicLabel.textContent = "Play music";
+  }
+});
 
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
-
-    if (distance <= 0) {
-        ["days", "hours", "minutes", "seconds"].forEach(id => {
-            document.getElementById(id).innerText = "00";
-        });
+musicToggle.addEventListener("click", async () => {
+  if (weddingMusic.paused) {
+    try {
+      await weddingMusic.play();
+      musicToggle.textContent = "♫";
+      musicLabel.textContent = "Pause music";
+    } catch (error) {
+      musicLabel.textContent = "Play music";
+    }
+  } else {
+    weddingMusic.pause();
+    musicToggle.textContent = "♪";
+    musicLabel.textContent = "Play music";
+  }
+});
         return;
     }
 
