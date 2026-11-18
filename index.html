@@ -4,61 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#101b35">
-  <title> Syikin & Hafidz | Wedding Invitation</title>
+  <title>Syikin & Hafidz | Wedding Invitation</title>
   <meta name="description" content="You are warmly invited to celebrate the wedding of Syikin and Hafidz">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="music-control" id="musicControl" aria-label="Music controls">
-   <div class="music-control" id="musicControl">
-    <button id="musicToggle" class="music-button" type="button">
-        ♫
-    </button>
+
+  <!-- MUSIC CONTROL -->
+  <div class="music-control" id="musicControl">
+    <button id="musicToggle" class="music-button" type="button" aria-label="Play music">♫</button>
     <span id="musicLabel">Play music</span>
-</div>
+  </div>
 
-<!-- BACKGROUND MUSIC -->
-<audio id="weddingMusic" loop preload="auto">
+  <!-- BACKGROUND MUSIC -->
+  <audio id="weddingMusic" loop preload="auto">
     <source src="./WhatsApp%20Audio%202026-11-18%20at%2010.15.51.mpeg" type="audio/mpeg">
-</audio>
-</body>
-</html>
+  </audio>
 
+  <!-- COVER -->
   <section class="cover" id="cover">
     <div class="cover-frame"></div>
+
     <div class="cover-content">
       <p class="eyebrow">TO CELEBRATE THE WEDDING OF</p>
-      <div class="wax-seal" aria-hidden="true">A<span>&</span>A</div>
-      <h1 class="cover-names"> Syikin <span>&</span> Hafidz</h1>
-      <p class="cover-date" id="coverDate">20 DECEMBER 2026</p>
+
+      <div class="wax-seal">A<span>&</span>A</div>
+
+      <h1 class="cover-names">Syikin <span>&</span> Hafidz</h1>
+
+      <p class="cover-date">20 DECEMBER 2026</p>
+
       <button class="primary-button open-button" id="openInvitation" type="button">
-        <span>OPEN INVITATION</span><span aria-hidden="true">✧</span>
+        <span>OPEN INVITATION</span>
+        <span aria-hidden="true">✧</span>
       </button>
+
       <p class="cover-hint">A little celebration, a lifetime of love</p>
     </div>
-    <div class="corner corner-tl">✧</div><div class="corner corner-tr">✧</div>
-    <div class="corner corner-bl">✧</div><div class="corner corner-br">✧</div>
+
+    <div class="corner corner-tl">✧</div>
+    <div class="corner corner-tr">✧</div>
+    <div class="corner corner-bl">✧</div>
+    <div class="corner corner-br">✧</div>
   </section>
 
+  <!-- MAIN INVITATION -->
   <main id="invitation" class="invitation is-hidden">
+
+    <!-- HERO -->
     <section class="hero section-shell">
       <p class="eyebrow">WITH JOY IN OUR HEARTS</p>
+
       <h2 class="script-heading">Together with our families</h2>
-      <p class="intro-copy">We invite you to join us as we begin our forever.</p>
-      <h1 class="couple-names"><span id="brideName">Syikin </span><i>&</i><span id="groomName">Hafidz</span></h1>
+
+      <p class="intro-copy">
+        We invite you to join us as we begin our forever.
+      </p>
+
+      <h1 class="couple-names">
+        <span>Syikin</span>
+        <i>&</i>
+        <span>Hafidz</span>
+      </h1>
+
       <div class="ornament"><span></span> ✧ <span></span></div>
-      <p class="event-date" id="heroDate">SUNDAY, 20 DECEMBER 2026</p>
-      <p class="event-place" id="heroPlace">LAHAD DATU, SABAH</p>
+
+      <p class="event-date">SUNDAY, 20 DECEMBER 2026</p>
+      <p class="event-place">LAHAD DATU, SABAH</p>
+
       <a class="text-link" href="#details">DISCOVER THE DETAILS ↓</a>
     </section>
 
+    <!-- COUNTDOWN -->
     <section class="countdown-section section-shell">
       <p class="eyebrow">THE BIG DAY IS ALMOST HERE</p>
+
       <h2 class="script-heading">Counting down to forever</h2>
-      <div class="countdown" aria-label="Countdown to wedding">
+
+      <div class="countdown">
         <div><strong id="days">00</strong><span>Days</span></div>
         <div><strong id="hours">00</strong><span>Hours</span></div>
         <div><strong id="minutes">00</strong><span>Minutes</span></div>
@@ -66,27 +96,41 @@
       </div>
     </section>
 
+    <!-- EVENT DETAILS -->
     <section class="details-section section-shell" id="details">
       <p class="eyebrow">KINDLY JOIN US</p>
+
       <h2 class="script-heading">The Wedding Celebration</h2>
+
       <div class="details-grid">
+
         <article class="detail-card">
           <div class="detail-icon">✧</div>
           <p class="eyebrow">WHEN</p>
           <h3>Wedding Day</h3>
-          <p id="detailDate">Sunday, 20 December 2026</p>
-          <p id="detailTime">10:00 AM – 8:00 PM</p>
+          <p>Sunday, 20 December 2026</p>
+          <p>10:00 AM – 8:00 PM</p>
         </article>
+
         <article class="detail-card">
           <div class="detail-icon">⌖</div>
           <p class="eyebrow">WHERE</p>
-          <h3 id="venueName">Ballroom</h3>
-          <p id="venueAddress">Lahad Datu, Sabah</p>
-          <a id="mapLink" class="outline-link" href="https://maps.google.com" target="_blank" rel="noopener">OPEN GOOGLE MAPS ↗</a>
+          <h3>Ballroom</h3>
+          <p>Lahad Datu, Sabah</p>
+
+          <a class="outline-link"
+             href="https://maps.google.com"
+             target="_blank"
+             rel="noopener">
+            OPEN GOOGLE MAPS ↗
+          </a>
         </article>
+
       </div>
+
       <div class="schedule">
         <h3 class="script-heading">Order of the day</h3>
+
         <div class="schedule-row"><time>10:00 AM</time><span>Guest arrival</span></div>
         <div class="schedule-row"><time>12:00 PM</time><span>Wedding reception</span></div>
         <div class="schedule-row"><time>01:00 PM</time><span>Photo session & greetings</span></div>
@@ -94,130 +138,175 @@
       </div>
     </section>
 
+    <!-- QUOTE -->
     <section class="quote-section section-shell">
       <span class="quote-mark">“</span>
-      <blockquote id="loveQuote">Two hearts, one promise, and a lifetime of beautiful tomorrows.</blockquote>
+
+      <blockquote>
+        Two hearts, one promise, and a lifetime of beautiful tomorrows.
+      </blockquote>
+
       <p class="eyebrow">A PROMISE OF FOREVER</p>
     </section>
 
+    <!-- GALLERY -->
     <section class="gallery-section section-shell" id="gallery">
       <p class="eyebrow">OUR FAVOURITE MOMENTS</p>
+
       <h2 class="script-heading">A little glimpse of us</h2>
+
       <p class="section-note">Tap any photograph to view it up close.</p>
-      <div class="gallery-grid" id="galleryGrid">
-        <button class="gallery-item gallery-tall" data-index="0" type="button" aria-label="View photograph 1"><img src="images/photo-1.jpg" alt="Aisyah and Adam photograph 1"><span>01</span></button>
-        <button class="gallery-item" data-index="1" type="button" aria-label="View photograph 2"><img src="images/photo-2.jpg" alt=" Syikin and Hafidz photograph 2"><span>02</span></button>
-        <button class="gallery-item" data-index="2" type="button" aria-label="View photograph 3"><img src="images/photo-3.jpg" alt=" Syikin and Hafidz photograph 3"><span>03</span></button>
+
+      <div class="gallery-grid">
+        <button class="gallery-item gallery-tall" data-index="0" type="button">
+          <img src="images/photo-1.jpg" alt="Wedding photograph 1">
+          <span>01</span>
+        </button>
+
+        <button class="gallery-item" data-index="1" type="button">
+          <img src="images/photo-2.jpg" alt="Wedding photograph 2">
+          <span>02</span>
+        </button>
+
+        <button class="gallery-item" data-index="2" type="button">
+          <img src="images/photo-3.jpg" alt="Wedding photograph 3">
+          <span>03</span>
+        </button>
       </div>
+
       <div class="gallery-controls">
-        <button class="round-button" id="galleryPrev" type="button" aria-label="Previous photo">←</button>
+        <button class="round-button" id="galleryPrev" type="button">←</button>
         <span id="galleryCounter">01 / 03</span>
-        <button class="round-button" id="galleryNext" type="button" aria-label="Next photo">→</button>
+        <button class="round-button" id="galleryNext" type="button">→</button>
         <button class="text-link slideshow-toggle" id="slideshowToggle" type="button">START SLIDESHOW</button>
       </div>
     </section>
 
-   <section class="rsvp-section section-shell" id="rsvp">
-  <p class="eyebrow">KINDLY REPLY BY <span id="rsvpDeadline">1 DECEMBER 2026</span></p>
-  <h2 class="script-heading">Will you be joining us?</h2>
-  <p class="section-note">Your presence will make our day even more meaningful.</p>
+    <!-- RSVP -->
+    <section class="rsvp-section section-shell" id="rsvp">
+      <p class="eyebrow">KINDLY REPLY BY 1 DECEMBER 2026</p>
 
-  <button class="primary-button rsvp-open-button" id="openRsvp" type="button">
-    RESPOND TO INVITATION ✧
-  </button>
+      <h2 class="script-heading">Will you be joining us?</h2>
 
-  <div class="rsvp-modal" id="rsvpModal" aria-hidden="true">
-    <div class="rsvp-modal-card" role="dialog" aria-modal="true"
-         aria-labelledby="rsvpModalTitle">
-
-      <button class="rsvp-modal-close" id="closeRsvp"
-              type="button" aria-label="Close RSVP">&times;</button>
-
-      <div class="rsvp-modal-decoration">✧</div>
-      <p class="eyebrow">SYIKIN &amp; HAFIDZ</p>
-      <h2 class="script-heading" id="rsvpModalTitle">Kindly Respond</h2>
-      <p class="rsvp-modal-note">
-        We would be delighted to celebrate this special day with you.
+      <p class="section-note">
+        Your presence will make our day even more meaningful.
       </p>
 
-      <form id="rsvpForm" class="rsvp-form">
-        <label for="guestName">Your name</label>
-        <input id="guestName" name="name" type="text"
-               placeholder="Enter your full name" maxlength="80" required>
+      <button class="primary-button rsvp-open-button" id="openRsvp" type="button">
+        RESPOND TO INVITATION ✧
+      </button>
 
-        <label for="attendance">Will you attend?</label>
-        <select id="attendance" name="attendance" required>
-          <option value="Attending">Joyfully accepts</option>
-          <option value="Not attending">Regretfully declines</option>
-        </select>
+      <div class="rsvp-modal" id="rsvpModal" aria-hidden="true">
+        <div class="rsvp-modal-card" role="dialog" aria-modal="true">
 
-        <div id="guestCountField">
-          <label for="guestCount">Number of guests (including you)</label>
-          <select id="guestCount" name="guests">
-            <option value="1">1 guest</option>
-            <option value="2">2 guests</option>
-            <option value="3">3 guests</option>
-            <option value="4">4 guests</option>
-            <option value="5">5 guests</option>
-          </select>
+          <button class="rsvp-modal-close" id="closeRsvp" type="button">&times;</button>
+
+          <div class="rsvp-modal-decoration">✧</div>
+
+          <p class="eyebrow">SYIKIN & HAFIDZ</p>
+
+          <h2 class="script-heading">Kindly Respond</h2>
+
+          <p class="rsvp-modal-note">
+            We would be delighted to celebrate this special day with you.
+          </p>
+
+          <form id="rsvpForm" class="rsvp-form">
+
+            <label for="guestName">Your name</label>
+            <input id="guestName" name="name" type="text"
+                   placeholder="Enter your full name" required>
+
+            <label for="attendance">Will you attend?</label>
+            <select id="attendance" name="attendance">
+              <option value="Attending">Joyfully accepts</option>
+              <option value="Not attending">Regretfully declines</option>
+            </select>
+
+            <div id="guestCountField">
+              <label for="guestCount">Number of guests</label>
+              <select id="guestCount" name="guests">
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="5">5 guests</option>
+              </select>
+            </div>
+
+            <label for="guestMessage">A little message (optional)</label>
+            <textarea id="guestMessage" name="message" rows="3"
+                      placeholder="Leave your wishes for the couple..."></textarea>
+
+            <label class="consent-line">
+              <input id="showName" type="checkbox" checked>
+              I agree that my name may appear in the guest attendance list.
+            </label>
+
+            <button class="primary-button submit-button" type="submit">
+              SEND RSVP ✧
+            </button>
+
+            <p class="form-status" id="formStatus"></p>
+
+          </form>
+
+          <div class="rsvp-success" id="rsvpSuccess" hidden>
+            <div class="success-icon">✧</div>
+            <h3 class="script-heading">Thank You!</h3>
+            <p>Your response has been received.</p>
+            <button class="primary-button" id="finishRsvp" type="button">CLOSE ✧</button>
+          </div>
+
         </div>
-
-        <label for="guestMessage">A little message (optional)</label>
-        <textarea id="guestMessage" name="message" rows="3"
-                  maxlength="300"
-                  placeholder="Leave your wishes for the couple..."></textarea>
-
-        <label class="consent-line">
-          <input id="showName" type="checkbox" checked>
-          I agree that my name may appear in the guest attendance list.
-        </label>
-
-        <button class="primary-button submit-button" type="submit">
-          SEND RSVP ✧
-        </button>
-
-        <p class="form-status" id="formStatus"
-           role="status" aria-live="polite"></p>
-      </form>
-
-      <div class="rsvp-success" id="rsvpSuccess" hidden>
-        <div class="success-icon">✧</div>
-        <h3 class="script-heading">Thank You!</h3>
-        <p id="rsvpSuccessMessage">
-          Your response has been received. Thank you for being part of our celebration.
-        </p>
-        <button class="primary-button" id="finishRsvp" type="button">
-          CLOSE ✧
-        </button>
       </div>
-
-    </div>
-  </div>
-</section>
-
-    <section class="guestbook-section section-shell" id="guestbook">
-      <p class="eyebrow">CELEBRATING WITH US</p>
-      <h2 class="script-heading">Our lovely guests</h2>
-      <p class="guest-count"><strong id="attendingCount">0</strong> guests have confirmed their attendance</p>
-      <ul class="guest-list" id="guestList"><li class="guest-empty">Guest names will appear here after RSVP is connected.</li></ul>
-      <p class="guest-privacy">Only guests who agree to display their names will appear on this list.</p>
     </section>
 
+    <!-- GUESTBOOK -->
+    <section class="guestbook-section section-shell">
+      <p class="eyebrow">CELEBRATING WITH US</p>
+
+      <h2 class="script-heading">Our lovely guests</h2>
+
+      <p class="guest-count">
+        <strong id="attendingCount">0</strong>
+        guests have confirmed their attendance
+      </p>
+
+      <ul class="guest-list" id="guestList">
+        <li class="guest-empty">Guest names will appear here.</li>
+      </ul>
+
+      <p class="guest-privacy">
+        Only guests who agree to display their names will appear on this list.
+      </p>
+    </section>
+
+    <!-- CLOSING -->
     <section class="closing-section section-shell">
       <div class="ornament"><span></span> ✧ <span></span></div>
+
       <h2 class="script-heading">We cannot wait to celebrate with you</h2>
+
       <p>With love,</p>
-      <h3 class="closing-names"> Syikin & Hafidz </h3>
+
+      <h3 class="closing-names">Syikin & Hafidz</h3>
+
       <a class="text-link" href="#cover">BACK TO TOP ↑</a>
     </section>
-    <footer class="footer">MADE WITH LOVE · <span id="footerNames"> Syikin & Hafidz </span></footer>
+
+    <footer class="footer">
+      MADE WITH LOVE · SYIKIN & HAFIDZ
+    </footer>
+
   </main>
 
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close gallery">×</button>
-    <button class="lightbox-arrow prev" id="lightboxPrev" type="button" aria-label="Previous image">‹</button>
-    <img id="lightboxImage" src="images/photo-1.jpg" alt="Wedding gallery enlarged image">
-    <button class="lightbox-arrow next" id="lightboxNext" type="button" aria-label="Next image">›</button>
+    <button class="lightbox-close" id="lightboxClose" type="button">×</button>
+    <button class="lightbox-arrow prev" id="lightboxPrev" type="button">‹</button>
+    <img id="lightboxImage" src="images/photo-1.jpg" alt="Wedding photograph">
+    <button class="lightbox-arrow next" id="lightboxNext" type="button">›</button>
     <p id="lightboxCaption">01 / 03</p>
   </div>
 
