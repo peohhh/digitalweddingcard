@@ -1,23 +1,16 @@
-function openInvitation() {
-const openInvitation = document.getElementById("openInvitation");
-const invitation = document.getElementById("invitation");
-const cover = document.getElementById("cover");
+/* =================================
+   OPEN INVITATION & BACKGROUND MUSIC
+================================= */
 
-const weddingMusic = document.getElementById("weddingMusic");
-const musicToggle = document.getElementById("musicToggle");
-const musicLabel = document.getElementById("musicLabel");
-
-// OPEN WEDDING INVITATION
 const openButton = document.getElementById("openInvitation");
-const invitation = document.getElementById("invitation");
 const cover = document.getElementById("cover");
+const invitation = document.getElementById("invitation");
 
-// BACKGROUND MUSIC
 const weddingMusic = document.getElementById("weddingMusic");
 const musicToggle = document.getElementById("musicToggle");
 const musicLabel = document.getElementById("musicLabel");
 
-// Open invitation and play music
+// OPEN INVITATION + PLAY MUSIC
 openButton.addEventListener("click", async () => {
     cover.classList.add("is-hidden");
     invitation.classList.remove("is-hidden");
@@ -29,39 +22,52 @@ openButton.addEventListener("click", async () => {
 
     try {
         await weddingMusic.play();
+
         musicToggle.textContent = "♫";
         musicLabel.textContent = "Pause music";
         musicToggle.setAttribute("aria-label", "Pause music");
+
     } catch (error) {
+        console.error("Music could not play:", error);
         musicLabel.textContent = "Play music";
     }
 });
 
-// PLAY / PAUSE MUSIC
+// MUSIC PLAY / PAUSE
 musicToggle.addEventListener("click", async () => {
+
     if (weddingMusic.paused) {
+
         try {
             await weddingMusic.play();
+
             musicToggle.textContent = "♫";
             musicLabel.textContent = "Pause music";
             musicToggle.setAttribute("aria-label", "Pause music");
+
         } catch (error) {
-            musicLabel.textContent = "Play music";
+            console.error("Music could not play:", error);
         }
+
     } else {
+
         weddingMusic.pause();
+
         musicToggle.textContent = "♪";
         musicLabel.textContent = "Play music";
         musicToggle.setAttribute("aria-label", "Play music");
     }
 });
-        return;
-    }
 
-   // WEDDING COUNTDOWN
+
+/* =================================
+   WEDDING COUNTDOWN
+================================= */
+
 const weddingDate = new Date("December 20, 2026 11:00:00").getTime();
 
 function updateCountdown() {
+
     const now = new Date().getTime();
     const distance = weddingDate - now;
 
